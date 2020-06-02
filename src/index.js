@@ -1,8 +1,11 @@
+//Including neccessary library
 const express = require('express')
 const path = require('path')
 const http = require('http')
 const socketio = require('socket.io')
 const Filter = require('bad-words')
+
+//Including local function
 const {generateMessage, generateLocationMessage} = require('./utils/messages.js')
 const {addUser, removeUser, getUser, getUsersInRoom} = require('./utils/users.js')
 
@@ -10,7 +13,7 @@ const app = express()
 const server = http.createServer(app)
 const io = socketio(server)
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT||3000
 
 const publicDirectoryPath = path.join(__dirname,'../public')
 
@@ -19,6 +22,7 @@ app.use(express.static(publicDirectoryPath))
 io.on('connection', (socket) => {
     console.log('New connection is up!')
     
+    //Listening for new joinees
     socket.on('join', ({username, room}, callback) => {
         const {error, user} = addUser({id: socket.id, username, room})
 
@@ -38,6 +42,7 @@ io.on('connection', (socket) => {
         callback()
     })
     
+    //Listening for sendMessage connection
     socket.on('sendMessage', (value, callback) => {
         const user = getUser(socket.id)
         if(user){
@@ -52,6 +57,7 @@ io.on('connection', (socket) => {
         }
     })
 
+    //Listening for sendLocation connection
     socket.on('sendLocation', ({latitude, longitude} = {}, callback) => {
         const user = getUser(socket.id)
         if(user){
@@ -60,6 +66,7 @@ io.on('connection', (socket) => {
         }
     })
 
+    //Listening if any user disconnects
     socket.on('disconnect', ()=>{
         const user = removeUser(socket.id)
 
@@ -73,6 +80,6 @@ io.on('connection', (socket) => {
     })
 })
 
-server.listen(process.env.PORT, ()=>{
+server.listen(port, ()=>{
     console.log(`Server is running up on ${port}!`)
 })

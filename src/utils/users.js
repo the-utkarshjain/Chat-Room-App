@@ -1,5 +1,6 @@
 const users = []
 
+//Function to add user to the array
 const addUser = ({id, username, room}) => {
     username = username.trim().toLowerCase()
     room = room.trim().toLowerCase()
@@ -26,6 +27,7 @@ const addUser = ({id, username, room}) => {
     return {user}
 }
 
+//Function to removing a user from the array
 const removeUser = (id) => {
     const index = users.findIndex((user) => user.id === id)
 
@@ -34,10 +36,12 @@ const removeUser = (id) => {
     }
 }
 
+//Function to get details of a user
 const getUser = (id) => {
     return users.find((user) => user.id === id)
 }
 
+//Function to get details of a chat room
 const getUsersInRoom = (room) => {
     room = room.trim().toLowerCase()
     return users.filter((user) => user.room === room)
