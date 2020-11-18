@@ -9,7 +9,7 @@ This app is completely build on Node.js and uses [WebSocket protocol](https://en
 
 ### Use
 
-1. Head over to [https://utkarsh-web-server.herokuapp.com/](https://utkarsh-web-server.herokuapp.com/)
+1. Head over to [https://utkarsh-chat-app.herokuapp.com//](https://utkarsh-chat-app.herokuapp.com/)
 2. Type in your name and the room you want to enter 
 
 and that's it!
